@@ -8,7 +8,7 @@
 # Overview
 - [Example Clap Plugins](#example-clap-plugins)
   - [Notes on GUI, static build vs dynamic build and symbols](#notes-on-gui-static-build-vs-dynamic-build-and-symbols)
-- [Building on Linux](#build-steps)
+- [Building on Linux](#building-on-linux)
 
 # Example Clap Plugins
 

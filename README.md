@@ -1,12 +1,14 @@
+# Info
+- this is a fork of https://github.com/free-audio/clap-plugins
+- with simplified build steps for linux based systems
+  - no git submodules
+  - no downloads in cmake files
+  - less bloat
+  
+# Overview
 - [Example Clap Plugins](#example-clap-plugins)
   - [Notes on GUI, static build vs dynamic build and symbols](#notes-on-gui-static-build-vs-dynamic-build-and-symbols)
-- [Building on various platforms](#building-on-various-platforms)
-  - [Headless](#headless)
-  - [macOS with vcpkg](#macos-with-vcpkg)
-  - [Windows](#windows)
-    - [Enable long path support](#enable-long-path-support)
-    - [Build](#build)
-  - [Linux, using vcpkg (static)](#linux-using-vcpkg-static)
+- [Building on Linux](#build-steps)
 
 # Example Clap Plugins
 
@@ -39,67 +41,16 @@ The GUI itself work with proxy objects to the parameters, transport info, ...
 They are then bound into QML objects.
 See [`Knob.qml`](plugins/gui/qml/clap/Knob.qml) and [`parameter-proxy.hh`](plugins/gui/parameter-proxy.hh).
 
-# Building on various platforms
-
-## Headless
-
-This build variant doesn't include the GUI and is **much** faster to build due to the lack of dependencies.
-
+# Building on Linux
+## Build with GUI
 ```bash
-git clone --recurse-submodules https://github.com/free-audio/clap-plugins
-cd clap-plugins
-cmake --preset ninja-headless
-cmake --build --preset ninja-headless
+git clone https://github.com/majorx234/clap-plugins-linux
+cd clap-plugins-linux
+mkdir build
+cd build
+cmake ..
+make
 ```
 
-## macOS with vcpkg
-
-```shell
-# Install build tools
-brew install cmake ninja autoconf automake
-
-# Checkout the code
-git clone --recurse-submodules https://github.com/free-audio/clap-plugins
-cd clap-plugins
-scripts/build-gui.sh
-```
-
-## Windows
-
-### Enable long path support
-
-Make sure your system supports long paths. Run this in an administrator PowerShell:
-
-```powershell
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
-```
-
-Reference: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell
-
-### Build
-
-Install **Visual Studio 2022**; you can install it from the **Microsoft Store**. It can also install **git** and **CMake** for you.
-
-Use the following command inside `Powershell`:
-```ps1
-# Checkout the code very close to the root to avoid windows long path issues...
-cd c:\
-git clone --recurse-submodules https://github.com/free-audio/clap-plugins c-p
-cd c-p
-
-Powershell.exe -noexit -executionpolicy bypass -File .\scripts\build-gui.ps1
-```
-
-## Linux, using vcpkg (static)
-
-```bash
-# on unbuntu, adapt to your distribution and package manager
-sudo apt install git ninja-build cmake
-
-# on archlinux, adapt to your distribution and package manager
-sudo pacman -S git ninja cmake
-
-git clone --recurse-submodules https://github.com/free-audio/clap-plugins
-cd clap-plugins
-scripts/build-gui.sh
-```
+# TODO
+- simplified headless version
